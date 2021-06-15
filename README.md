@@ -1,2 +1,2 @@
 # fivem-speedlimiter-and-display
-Speedlimit display and speed limiter. Visit the fivem forum for more info
+Speedlimit display and speed limiter. https://forum.cfx.re/t/release-automatic-speed-limiter-speedlimit-display/3379415
