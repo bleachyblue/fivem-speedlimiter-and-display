@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
             local playerLocation = GetEntityCoords(ped)
             local street = GetStreetNameFromHashKey(GetStreetNameAtCoord(playerLocation.x, playerLocation.y, playerLocation.z))
 
-			if IsControlReleased(0, autoSpeedLimitKey) then
+			if IsControlReleased(0, autoSpeedLimitKey) and GetLastInputMethod(2) then
 				released = true
 			end
 		
@@ -37,7 +37,7 @@ Citizen.CreateThread(function()
 			if GetPedInVehicleSeat(veh, -1) == ped and not table.find(Config.disabledVehicleClasses, GetVehicleClass(veh)) and not table.find(Config.disabledVehicles, GetDisplayNameFromVehicleModel(GetEntityModel(veh))) then
 		
 				local pressed = IsControlPressed(0, autoSpeedLimitKey)
-				if pressed and enabled and released and Config.enableAutomaticSpeedlimiter then
+				if pressed and enabled and released and Config.enableAutomaticSpeedlimiter and GetLastInputMethod(2) then
 					enabled = false
 					released = false
 					alertmsg(Config.disabledAlert)
