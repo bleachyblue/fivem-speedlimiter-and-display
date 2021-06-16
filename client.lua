@@ -84,6 +84,6 @@ function DisplayLimit(speedlimit)
 		SetTextEdge(1, 0,0,0,0)
 		SetTextEntry("STRING")
         AddTextComponentString(string.format("~w~Speedlimit: ~w~%s~w~ MPH", speedlimit))
-		DrawText(0.514 - 1.0 / 2, 1.230 - 1.0 / 2.04) -- Change text position here
+		DrawText(Config.HUDPosition.x, Config.HUDPosition.y) -- Change text position here
 	end
 end

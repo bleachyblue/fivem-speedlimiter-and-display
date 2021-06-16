@@ -39,7 +39,10 @@ Config.disabledVehicles = {
 Config.enabledAlert = "You have ~g~ENABLED~w~ automatic speed limits"
 Config.disabledAlert = "You have ~r~DISABLED~w~ automatic speed limits"
 
--- Change the positioning of the speedlimit text in the client.lua file. 
+Config.HUDPosition = {
+    ["x"] = 0.01,
+    ["y"] = 0.74
+} 
 
 Config.SpeedLimits = {
     ["East Joshua Road"] = "50", 
