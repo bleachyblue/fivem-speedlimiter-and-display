@@ -22,38 +22,42 @@ Citizen.CreateThread(function()
 
 		local ped = PlayerPedId()
         if IsPedInAnyVehicle(ped) then
-            local playerLocation = GetEntityCoords(ped)
-            local street = GetStreetNameFromHashKey(GetStreetNameAtCoord(playerLocation.x, playerLocation.y, playerLocation.z))
+            local veh = GetVehiclePedIsIn(ped, false)
+            if GetPedInVehicleSeat(veh, -1) == ped then
 
-			if IsControlReleased(0, autoSpeedLimitKey) and GetLastInputMethod(2) then
-				released = true
-			end
-		
-			local veh = GetVehiclePedIsIn(ped, false)
-			if GetPedInVehicleSeat(veh, -1) == ped and not table.find(Config.disabledVehicleClasses, GetVehicleClass(veh)) and not table.find(Config.disabledVehicles, GetDisplayNameFromVehicleModel(GetEntityModel(veh))) then
-				local pressed = IsControlPressed(0, autoSpeedLimitKey)
-				if pressed and enabled and released and Config.enableAutomaticSpeedlimiter and GetLastInputMethod(2) then
-					enabled = false
-					released = false
-					SendAlert(Config.disabledAlert)
-				elseif pressed and not enabled and released and Config.enableAutomaticSpeedlimiter then
-					enabled = true
-					released = false
-					SendAlert(Config.enabledAlert)
-				end		
+                local playerLocation = GetEntityCoords(ped)
+                local street = GetStreetNameFromHashKey(GetStreetNameAtCoord(playerLocation.x, playerLocation.y, playerLocation.z))
 
-				if Config.SpeedLimits[street] then
-					speedlimit = Config.SpeedLimits[street]
-					DisplayLimit(speedlimit)
-				else
-					speedlimit = "30"
-					DisplayLimit(speedlimit)
-				end
-				
-				if enabled and Config.enableAutomaticSpeedlimiter and (GetEntitySpeed(veh) * 2.236936) > tonumber(speedlimit) then
-					DisableControlAction(0, 71, true)
-				end
-			end
+                if IsControlReleased(0, autoSpeedLimitKey) and GetLastInputMethod(2) then
+                    released = true
+                end
+            
+                local veh = GetVehiclePedIsIn(ped, false)
+                if not table.find(Config.disabledVehicleClasses, GetVehicleClass(veh)) and not table.find(Config.disabledVehicles, GetDisplayNameFromVehicleModel(GetEntityModel(veh))) then
+                    local pressed = IsControlPressed(0, autoSpeedLimitKey)
+                    if pressed and enabled and released and Config.enableAutomaticSpeedlimiter and GetLastInputMethod(2) then
+                        enabled = false
+                        released = false
+                        SendAlert(Config.disabledAlert)
+                    elseif pressed and not enabled and released and Config.enableAutomaticSpeedlimiter then
+                        enabled = true
+                        released = false
+                        SendAlert(Config.enabledAlert)
+                    end		
+
+                    if Config.SpeedLimits[street] then
+                        speedlimit = Config.SpeedLimits[street]
+                        DisplayLimit(speedlimit)
+                    else
+                        speedlimit = "30"
+                        DisplayLimit(speedlimit)
+                    end
+                    
+                    if enabled and Config.enableAutomaticSpeedlimiter and (GetEntitySpeed(veh) * 2.236936) > tonumber(speedlimit) then
+                        DisableControlAction(0, 71, true)
+                    end
+                end
+            end
 		end					
     end
 end)
