@@ -24,12 +24,11 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
 
-		local ped = GetPlayerPed(-1)
-        local playerLocation = GetEntityCoords(ped)
-        street = GetStreetNameFromHashKey(GetStreetNameAtCoord(playerLocation.x, playerLocation.y, playerLocation.z))
+		local ped = PlayerPedId()
+        if IsPedInAnyVehicle(ped) then
+            local playerLocation = GetEntityCoords(ped)
+            local street = GetStreetNameFromHashKey(GetStreetNameAtCoord(playerLocation.x, playerLocation.y, playerLocation.z))
 
-		if IsPedInAnyVehicle(ped) then
-		
 			if IsControlReleased(0, autoSpeedLimitKey) then
 				released = true
 			end
